@@ -115,7 +115,7 @@ public class Calculator extends VBox implements EventHandler<ActionEvent>{
 		equals.setOnAction(this);
 		
 		Button reset = new Button("C");
-		gd.add(reset, 0, 4, 3, 1);
+		gd.add(reset, 0, 4, 4, 1);
 		reset.setPrefWidth(215);
 		reset.setOnAction(this);
 		
@@ -128,9 +128,40 @@ public class Calculator extends VBox implements EventHandler<ActionEvent>{
 		Button b = (Button) event.getSource();
 		String value = b.getText();
 		
-		***
-		***
-		***
+		String arrayValues[] = {"+", "-", "*", "/"};
+		
+		if(value.equals("=")) {
+			if(operator == null) {
+				displayText.setText("");
+			}else if(operator.equals("+")) {
+				displayText.setText(Integer.toString(Integer.parseInt(this.number1) + Integer.parseInt(this.number2))); 
+			}else if(operator.equals("-")) {
+				displayText.setText(Integer.toString(Integer.parseInt(this.number1) - Integer.parseInt(this.number2))); 
+			}else if(operator.equals("*")) {
+				displayText.setText(Integer.toString(Integer.parseInt(this.number1) * Integer.parseInt(this.number2))); 
+			}else if(operator.equals("/")) {
+				displayText.setText(Integer.toString(Integer.parseInt(this.number1) / Integer.parseInt(this.number2))); 
+			}
+			this.number1 = "";
+			this.number2 = "";
+			this.operator = null;
+		}else if(value.equals("C")) {
+			this.number1 = "";
+			this.number2 = "";
+			this.operator = null;
+			displayText.setText("");
+		}else {
+			if(Arrays.asList(arrayValues).contains(value)) {
+				displayText.setText(this.number1 + value);
+				this.operator = value;
+			}else if(!(displayText.getText().contains("-") || displayText.getText().contains("+") || displayText.getText().contains("/") || displayText.getText().contains("*"))) {
+				this.number1 = this.number1 + value;
+				displayText.setText(this.number1);
+			}else {
+				this.number2 = this.number2 + value;
+				displayText.setText(displayText.getText() + this.number2);
+			}
+		}		
 		
 	}
 	
